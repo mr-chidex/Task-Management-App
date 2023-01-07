@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { NotFoundError } from 'rxjs';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { TaskFilterDto } from './dto/task-filter.dto';
@@ -53,9 +58,7 @@ export class TasksService {
   findOne(id: string) {
     const taskIndex = this.tasks.findIndex((task) => task.id === id);
 
-    if (taskIndex < 0)
-      throw new HttpException('task not found', HttpStatus.NOT_FOUND);
-
+    if (taskIndex < 0) throw new NotFoundException('task not found');
     return taskIndex;
   }
 
