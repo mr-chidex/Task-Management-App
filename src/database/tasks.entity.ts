@@ -1,4 +1,11 @@
-import { BaseEntity, PrimaryGeneratedColumn, Entity, Column } from 'typeorm';
+import {
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  Entity,
+  Column,
+  ManyToOne,
+} from 'typeorm';
+import { User } from './user.entity';
 
 export enum TaskStatus {
   OPEN = 'OPEN',
@@ -19,4 +26,7 @@ export class Task extends BaseEntity {
 
   @Column({ type: 'enum', enum: TaskStatus, default: TaskStatus.OPEN })
   status: TaskStatus;
+
+  @ManyToOne((type) => User, (user) => user.tasks, { eager: false })
+  user: User;
 }

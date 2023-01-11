@@ -16,7 +16,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { TaskFilterDto } from './dto/task-filter.dto';
 import { TaskStatusPipe } from './pipes/task-status-validation.pipe';
-import { Task, TaskStatus } from './tasks.entity';
+import { Task, TaskStatus } from '../database/tasks.entity';
 import { TasksService } from './tasks.service';
 
 @Controller('tasks')

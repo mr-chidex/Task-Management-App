@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { TaskFilterDto } from './dto/task-filter.dto';
-import { Task, TaskStatus } from './tasks.entity';
+import { Task, TaskStatus } from '../database/tasks.entity';
 
 @Injectable()
 export class TasksService {

@@ -4,7 +4,7 @@ import {
   BadRequestException,
   Injectable,
 } from '@nestjs/common';
-import { TaskStatus } from '../tasks.entity';
+import { TaskStatus } from '../../database/tasks.entity';
 
 @Injectable()
 export class TaskStatusPipe implements PipeTransform {
