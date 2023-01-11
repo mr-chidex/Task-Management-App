@@ -1,7 +1,12 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AuthCredentialDto } from './dto/auth-credential.dto';
+import { LoginAuthDto, RegisterAuthDto } from './dto';
+import * as bcrypt from 'bcrypt';
 
 import { User } from './user.entity';
 
@@ -11,12 +16,35 @@ export class AuthService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  async signup(authCredentials: AuthCredentialDto) {
+  async signup(authCredentials: RegisterAuthDto) {
     const { username, password } = authCredentials;
 
     const userExist = await this.userRepository.findOneBy({ username });
     if (userExist) throw new BadRequestException('username already in use');
 
-    await this.userRepository.create({ username, password }).save();
+    const salt = await bcrypt.genSalt(12);
+    const hashPass = await bcrypt.hash(password, salt);
+
+    await this.userRepository.create({ username, password: hashPass }).save();
+  }
+
+  async signin(loginCredentials: LoginAuthDto) {
+    const user = this.validateCredentials(loginCredentials);
+
+    return user;
+  }
+
+  private async validateCredentials(loginCredentials: LoginAuthDto) {
+    const { username, password } = loginCredentials;
+
+    const user = await this.userRepository.findOneBy({ username });
+    if (!user)
+      throw new UnauthorizedException('username or password is incorrect');
+
+    const isPassword = await bcrypt.compare(password, user.password);
+    if (!isPassword)
+      throw new UnauthorizedException('username or password is incorrect');
+
+    return user;
   }
 }
