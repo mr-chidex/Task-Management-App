@@ -9,11 +9,13 @@ import { LoginAuthDto, RegisterAuthDto } from './dto';
 import * as bcrypt from 'bcrypt';
 
 import { User } from './user.entity';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
 
   async signup(authCredentials: RegisterAuthDto) {
@@ -29,9 +31,12 @@ export class AuthService {
   }
 
   async signin(loginCredentials: LoginAuthDto) {
-    const user = this.validateCredentials(loginCredentials);
+    const user = await this.validateCredentials(loginCredentials);
 
-    return user;
+    const payload = { username: user.username };
+    const token = this.jwtService.sign(payload);
+
+    return { token };
   }
 
   private async validateCredentials(loginCredentials: LoginAuthDto) {

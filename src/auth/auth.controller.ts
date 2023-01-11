@@ -4,7 +4,10 @@ import {
   Body,
   ValidationPipe,
   UsePipes,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { LoginAuthDto, RegisterAuthDto } from './dto';
 import { AuthPipe } from './pipes/auth.pipe';
@@ -23,5 +26,12 @@ export class AuthController {
   @UsePipes(AuthPipe)
   login(@Body(ValidationPipe) authCredential: LoginAuthDto) {
     return this.authService.signin(authCredential);
+  }
+
+  @Post('test')
+  @UseGuards(AuthGuard())
+  test(@Req() req) {
+    console.log(req);
+    return 'test';
   }
 }
