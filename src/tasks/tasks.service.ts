@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { TaskFilterDto } from './dto/task-filter.dto';
 import { Task, TaskStatus } from '../database/tasks.entity';
+import { User } from 'src/database/user.entity';
 
 @Injectable()
 export class TasksService {
@@ -29,8 +30,10 @@ export class TasksService {
     return await query.getMany();
   }
 
-  async createTask(createTaskDto: CreateTaskDTO): Promise<Task> {
-    const newTask = this.taskRepository.create(createTaskDto).save();
+  async createTask(createTaskDto: CreateTaskDTO, user: User): Promise<Task> {
+    const newTask = this.taskRepository
+      .create({ ...createTaskDto, userId: user.id })
+      .save();
     return newTask;
   }
 
