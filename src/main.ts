@@ -1,5 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import * as config from 'config';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -9,7 +10,8 @@ async function bootstrap() {
   app.enableCors();
   app.setGlobalPrefix('api/v1');
 
-  const PORT = 3000;
+  const PORT =
+    process.env.PORT || (config.get('server') as { PORT: number }).PORT;
 
   await app.listen(PORT);
   logger.log(`Application running on PORT::>> ${PORT}`);

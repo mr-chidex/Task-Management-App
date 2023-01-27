@@ -1,0 +1,8 @@
+db:
+  username: 'postgres'
+  password: 'password'
+  database: 'taskmanagement'
+  synchronize: true
+
+jwt:
+  secret: 'mindyourbusiness'
