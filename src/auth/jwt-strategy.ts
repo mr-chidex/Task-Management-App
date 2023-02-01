@@ -5,8 +5,7 @@ import { JWTPaload } from './interface/jwt.interfaces';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../database/user.entity';
 import { Repository } from 'typeorm';
-import * as config from 'config';
-import { JWT } from 'src/config/config.interface';
+import 'dotenv/config';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -16,7 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: (config.get('jwt') as JWT).secret,
+      secretOrKey: process.env.JWT_SECRET,
     });
   }
 

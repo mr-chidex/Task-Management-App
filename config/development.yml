@@ -1,8 +1,15 @@
+server:
+  PORT: 3000
+
 db:
-  username: 'postgres'
-  password: 'password'
-  database: 'taskmanagement'
+  type: 'postgres'
+  RDS_HOSTNAME: 'localhost'
+  RDS_PORT: 5432
+  RDS_USERNAME: 'postgres'
+  RDS_PASSWORD: 'password'
+  RDS_DB_NAME: 'taskmanagement'
   synchronize: true
 
 jwt:
+  expiresIn: 3600
   secret: 'mindyourbusiness'

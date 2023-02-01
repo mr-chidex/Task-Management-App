@@ -1,10 +1,16 @@
 server:
-  PORT: 3000
+  PORT: ''
+  origin: ''
 
 db:
   type: 'postgres'
-  host: 'localhost'
-  port: 5432
+  RDS_HOSTNAME: ''
+  RDS_PORT: ''
+  RDS_USERNAME: ''
+  RDS_PASSWORD: ''
+  RDS_DB_NAME: ''
+  synchronize: ''
 
 jwt:
-  expiresIn: 3600
+  expiresIn: ''
+  secret: ''

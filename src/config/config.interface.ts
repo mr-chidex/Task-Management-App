@@ -5,11 +5,11 @@ export enum DBType {
 
 export interface DB {
   type: DBType;
-  host: string;
-  port: number;
-  username: string;
-  password: string;
-  database: string;
+  RDS_HOSTNAME: string;
+  RDS_PORT: number;
+  RDS_USERNAME: string;
+  RDS_PASSWORD: string;
+  RDS_DB_NAME: string;
   synchronize: boolean;
 }
 
