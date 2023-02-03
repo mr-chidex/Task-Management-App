@@ -27,6 +27,11 @@ describe('TaskssController', () => {
     tasksController = moduleRef.get<TasksController>(TasksController);
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+  });
+
   describe('getAllTasks', () => {
     it('should return an array of tasks', async () => {
       const mockTask = [{ title: 'test', description: 'test' }] as Task[];
