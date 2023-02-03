@@ -1,6 +1,5 @@
 import { Test } from '@nestjs/testing';
 import { Task, TaskStatus } from '../database/tasks.entity';
-import { Repository } from 'typeorm';
 import { TasksService } from './tasks.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { TaskFilterDto } from './dto/task-filter.dto';
