@@ -39,7 +39,7 @@ export class AuthService {
     return { token };
   }
 
-  private async validateCredentials(loginCredentials: LoginAuthDto) {
+  async validateCredentials(loginCredentials: LoginAuthDto) {
     const { username, password } = loginCredentials;
 
     const user = await this.userRepository.findOneBy({ username });

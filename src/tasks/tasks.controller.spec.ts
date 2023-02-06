@@ -5,6 +5,7 @@ import { TaskFilterDto } from './dto/task-filter.dto';
 import { TasksController } from './tasks.controller';
 import { TasksService } from './tasks.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { PassportModule } from '@nestjs/passport';
 
 describe('TaskssController', () => {
   let tasksController: TasksController;
@@ -16,6 +17,7 @@ describe('TaskssController', () => {
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
+      imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
       controllers: [TasksController],
       providers: [
         TasksService,
