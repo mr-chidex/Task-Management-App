@@ -43,7 +43,6 @@ describe('AuthController', () => {
       jest.spyOn(authService, 'signup').mockResolvedValue(null);
 
       const result = await authController.register(mockAuthCredentials);
-      console.log(result);
       expect(result).toBeNull();
     });
   });
